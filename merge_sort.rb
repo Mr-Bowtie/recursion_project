@@ -1,27 +1,27 @@
+require 'pry'
+
 def merge_sort(array)
   if array.size < 2
     return array
   else
-    left = array.slice!(0..(array.size / 2) - 1)
-    right = array
-    left = merge_sort(left)
-    right = merge_sort(right)
+    left = merge_sort(array.slice!(0..(array.size / 2) - 1))
+    right = merge_sort(array)
   end
   merged = []
   until left.empty? && right.empty?
+    #binding.pry
     if left.empty?
-      merged + right
+      return merged + right
     elsif right.empty?
-      merged + left
+      return merged + left
     else
-      left_1 = left.shift
-      right_1 = right.shift
-      left_1 < right_1 ? merged << left_1 << right_1 : merged << right_1 << left_1
+      left[0] < right[0] ? merged << left.shift : merged << right.shift
+      #binding.pry
     end
   end
   merged
 end
 
-p merge_sort([2, 1])
+p merge_sort([4, 3, 2, 1])
 p merge_sort([5, 8, 7, 1, 4, 9])
 p merge_sort([3, 1, 2])
